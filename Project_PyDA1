@@ -1,2 +1,125 @@
 import pandas as pd
 df = pd.read_excel("C:/Users/Divya/Downloads/Python_CA2_DataSheet.xlsx")
+print(df.head())
+import seaborn as sns
+import matplotlib.pyplot as plt
+# Grouping data by States and Districts
+state_trend = df.groupby("States/UT's")['Total'].sum().reset_index().sort_values(by='Total', ascending=False)
+district_trend = df.groupby('Districts')['Total'].sum().reset_index().sort_values(by='Total', ascending=False)
+
+# Display the tables
+print("State-wise Tele-Law Case Registrations:\n", state_trend)
+print("\nDistrict-wise Tele-Law Case Registrations:\n", district_trend)
+
+# Visualization
+plt.figure(figsize=(10,5))
+sns.barplot(data=state_trend.head(10), x='Total', y="States/UT's", palette='viridis')
+plt.title("Top 10 States by Tele-Law Case Registrations")
+plt.xlabel("Total Cases")
+plt.ylabel("States/UT's")
+plt.tight_layout()
+plt.show()
+
+# Summarize gender distribution
+gender_cases = pd.DataFrame({
+    'Gender': ['Female', 'Male'],
+    'Total Cases': [df['Female'].sum(), df['Male'].sum()]
+})
+
+print("\nGender-wise Legal Advice Distribution:\n", gender_cases)
+
+# Visualization
+plt.figure(figsize=(5,5))
+plt.pie(gender_cases['Total Cases'], labels=gender_cases['Gender'], autopct='%1.1f%%', startangle=140, colors=['#FF9999','#66B3FF'])
+plt.title('Gender Distribution of Legal Advice Cases')
+plt.show()
+
+# Summarize caste-category distribution
+category_cases = pd.DataFrame({
+    'Category': ['General', 'OBC', 'SC', 'ST'],
+    'Total Cases': [df['General'].sum(), df['OBC'].sum(), df['SC'].sum(), df['ST'].sum()]
+})
+
+print("\nSocial Category-wise Legal Advice Distribution:\n", category_cases)
+
+# Visualization
+plt.figure(figsize=(8,5))
+sns.barplot(data=category_cases, x='Category', y='Total Cases', palette='mako')
+plt.title("Legal Advice Distribution by Social Category")
+plt.xlabel("Category")
+plt.ylabel("Total Cases")
+plt.tight_layout()
+plt.show()
+
+# Calculate performance: Cases per CSC in each District
+csc_performance = df[['Districts', 'No. of CSCs', 'Total']].copy()
+csc_performance['Cases per CSC'] = csc_performance['Total'] / csc_performance['No. of CSCs']
+
+# Identify underperforming CSCs (bottom 10)
+underperforming_cscs = csc_performance.sort_values(by='Cases per CSC').head(10)
+
+print("\nUnderperforming CSCs (Bottom 10 Districts by Case Load per CSC):\n")
+print(underperforming_cscs[['Districts', 'Cases per CSC']])
+
+# Visualization — Lollipop Chart
+plt.figure(figsize=(10,6))
+# Plot the sticks
+plt.hlines(y=underperforming_cscs['Districts'], xmin=0, xmax=underperforming_cscs['Cases per CSC'], color='gray', linewidth=2)
+# Plot the dots
+plt.plot(underperforming_cscs['Cases per CSC'], underperforming_cscs['Districts'], 'o', color='crimson', markersize=8)
+
+plt.title("Districts with Underperforming CSCs", fontsize=14, weight='bold')
+plt.xlabel("Cases per CSC")
+plt.ylabel("District")
+plt.grid(axis='x', linestyle='--', alpha=0.7)
+plt.tight_layout()
+plt.show()
+
+from sklearn.linear_model import LinearRegression
+
+# Using a simple Linear Regression Model: Predict 'Total' cases based on 'No. of CSCs'
+X = df[['No. of CSCs']]
+y = df['Total']
+
+model = LinearRegression()
+model.fit(X, y)
+
+df['Predicted_Total'] = model.predict(X).round().astype(int)
+
+# Display Actual vs Predicted sample table
+prediction_table = df[["States/UT's", 'Districts', 'No. of CSCs', 'Total', 'Predicted_Total']].head(10)
+print("\nPredicted vs Actual Tele-Law Case Registrations:\n", prediction_table)
+
+# Visualization
+plt.figure(figsize=(8,5))
+plt.scatter(df['No. of CSCs'], df['Total'], color='blue', label='Actual Cases')
+plt.plot(df['No. of CSCs'], df['Predicted_Total'], color='red', linewidth=2, label='Predicted Trend')
+plt.title('Tele-Law Cases Prediction Based on CSC Count')
+plt.xlabel('Number of CSCs')
+plt.ylabel('Total Cases')
+plt.legend()
+plt.tight_layout()
+plt.show()
+
+plt.figure(figsize=(10,6))
+sns.scatterplot(data=df, x='No. of CSCs', y='Total', hue="States/UT's", palette='tab10', s=100, alpha=0.7)
+
+plt.title("Relationship between No. of CSCs and Total Tele-Law Cases", fontsize=14, weight='bold')
+plt.xlabel("Number of CSCs in District")
+plt.ylabel("Total Tele-Law Cases")
+plt.legend(title='States/UTs', bbox_to_anchor=(1.05, 1), loc='upper left')
+plt.grid(True, linestyle='--', alpha=0.5)
+plt.tight_layout()
+plt.show()
+
+print(df[['No. of CSCs', 'Total']].value_counts())
+
+state_share = df.groupby("States/UT's")['Total'].sum().reset_index().sort_values(by='Total', ascending=False)
+
+plt.figure(figsize=(8,8))
+plt.pie(state_share['Total'], labels=state_share['States/UT\'s'], 
+        autopct='%1.1f%%', startangle=140, colors=sns.color_palette('pastel', len(state_share)))
+
+plt.title("State-wise Share of Total Tele-Law Cases", fontsize=14, weight='bold')
+plt.tight_layout()
+plt.show()
