@@ -1,0 +1,2 @@
+import pandas as pd
+df = pd.read_excel("C:/Users/Divya/Downloads/Python_CA2_DataSheet.xlsx")
