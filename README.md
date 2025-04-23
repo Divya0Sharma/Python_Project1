@@ -8,7 +8,7 @@ I’m excited to share my recent data analysis and visualization project on Tele
 ✅ 6️⃣ Visualizing the Relationship between CSC Count and Total Cases using Scatter Plots.
 ✅ 7️⃣ Presenting State-wise Distribution of Total Cases via Pie Charts.
 💡 The project combined:
- 📊 Pandas & Seaborn for data cleaning and analysis,
+ 📊 Pandas & Seaborn for data cleaning and analysis
  📈 Matplotlib & Seaborn for insightful visualizations
 🎯 Takeaway:
  This project gave me hands-on experience with real-world datasets, trend spotting, and visual storytelling — key skills for any aspiring data analyst or data scientist.
