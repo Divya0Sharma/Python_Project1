@@ -3,7 +3,7 @@ I’m excited to share my recent data analysis and visualization project on Tele
 ✅ 1️⃣ Analyzing State-wise and District-wise Trends in Tele-Law case registrations.
 ✅ 2️⃣ Exploring Gender-based Legal Advice Patterns to highlight disparities.
 ✅ 3️⃣ Studying Social Category Representation (General, OBC, SC, ST) for legal service usage.
- ✅ 4️⃣ Evaluating CSC (Common Service Centers) Performance in delivering legal advice.
+✅ 4️⃣ Evaluating CSC (Common Service Centers) Performance in delivering legal advice.
  ✅ 5️⃣ Using Predictive Analysis to model future Tele-Law case trends.
  ✅ 6️⃣ Visualizing the Relationship between CSC Count and Total Cases using Scatter Plots.
  ✅ 7️⃣ Presenting State-wise Distribution of Total Cases via Pie Charts.
