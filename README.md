@@ -5,7 +5,7 @@ I’m excited to share my recent data analysis and visualization project on Tele
 ✅ 3️⃣ Studying Social Category Representation (General, OBC, SC, ST) for legal service usage.
 ✅ 4️⃣ Evaluating CSC (Common Service Centers) Performance in delivering legal advice.
 ✅ 5️⃣ Using Predictive Analysis to model future Tele-Law case trends.
- ✅ 6️⃣ Visualizing the Relationship between CSC Count and Total Cases using Scatter Plots.
+✅ 6️⃣ Visualizing the Relationship between CSC Count and Total Cases using Scatter Plots.
  ✅ 7️⃣ Presenting State-wise Distribution of Total Cases via Pie Charts.
 💡 The project combined:
  📊 Pandas & Seaborn for data cleaning and analysis,
